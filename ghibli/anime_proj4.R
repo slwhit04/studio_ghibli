@@ -4,11 +4,12 @@ library(dplyr)
 library(knitr)
 library(stringr)
 library(scales)
+library(readr)
 
 
 ### read in data
 
-anime <- read.csv("~/stat251/ghibli/anime.csv", comment.char="#")
+anime <- read_csv("ghibli/anime.csv")
 studioghibli <- read.csv("C:/Users/19132/Downloads/Studio Ghibli.csv", header=FALSE)
 
 
