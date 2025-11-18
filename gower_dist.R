@@ -31,15 +31,13 @@ anime_clean <- anime_dataset |>
 
 gower_dist <- daisy(anime_clean, metric = "gower")
 
-# try and figure out how to actually use it
-
-
+##### try and figure out how to actually use it
 ### PAM
 
 pam_fit <- pam(gower_dist, k = 4)   # try different k
 pam_fit$clustering
 
-mds <- cmdscale(gower_dist, k = 2) %>% as.data.frame()
+mds <- cmdscale(gower_dist, k = 2) |>  as.data.frame()
 
 ggplot(mds, aes(V1, V2, color = factor(pam_fit$clustering))) +
   geom_point(size = 3) +
@@ -84,9 +82,9 @@ find_similar <- function(row_index, n = 10) {
 
 ghibli_similar <- map_df(ghibli_idx, find_similar, n = 10)
 
-ghibli_similar <- ghibli_similar %>%
+ghibli_similar <- ghibli_similar |> 
   left_join(
-    anime_dataset %>% 
+    anime_dataset |> 
       select(movieTitle, `NOTES:`),
     by = c("similar_anime" = "movieTitle")
   )
@@ -94,7 +92,7 @@ ghibli_similar <- ghibli_similar %>%
 ghibli_similar
 
 
-anime_labeled <- anime_dataset %>%
+anime_labeled <- anime_dataset |> 
   mutate(cluster = pam_fit$clustering)
 
 
